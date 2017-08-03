@@ -4,10 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var appRoutes = require('./routes/app');
 
 var app = express();
+// On établie la connection - il faut indiquer au est le server -> voir le port utiliser lorsqu'on lance le server mongo avec la commande ./mongod -> PORT + "nom de la database qu'on souhaite utiliser" 
+mongoose.connect('localhost:27017/myDataBase');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
