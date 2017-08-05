@@ -3,7 +3,17 @@ var router = express.Router();
 var User = require('../models/user');
 
 router.get('/', function (req, res, next) {
-    res.render('node');
+    // Pour récuperer des valeurs dans notre base de données
+    // On utilise find, la dns notre cas on utilise findOne avec un objet vide pour qu'il nous récupère le premier objet - avec un call back parce que c'est une méthode asynchrone
+    User.findOne({}, function(err, doc){
+        if(err){
+            res.send(err);
+        }
+
+        //(!) Attention de bien mettre la réponse node à l'interieure de la méthode .findOne()
+        res.render('node', {email : doc.email}); // On créer une variable email a qui on donne la valeur du retour doc.email
+    });
+    
 });
 
 router.post('/', function(req, res, next) {
